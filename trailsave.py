@@ -16,7 +16,7 @@
 
 """Automatically strip all trailing whitespace before saving."""
 
-from gi.repository import GObject, Gedit
+from gi.repository import GObject, Gedit, Tepl
 import re
 
 class SaveWithoutTrailingSpacePlugin(GObject.Object, Gedit.ViewActivatable):
@@ -46,7 +46,7 @@ class SaveWithoutTrailingSpacePlugin(GObject.Object, Gedit.ViewActivatable):
     def on_document_saving(self, *args):
         """Strip trailing spaces in document."""
 
-        if self.doc.get_short_name_for_display().endswith(".md"):
+        if Tepl.Buffer.get_short_title(self.doc).endswith(".md"):
             return
 
         self.doc.begin_user_action()
